@@ -1,0 +1,54 @@
+﻿Title: Graph Neural Network-Based Framework for Predicting Protein-Ligand Binding Affinity in Drug Discovery
+
+
+Abstract:
+The early stages of drug discovery involve identifying potential drug molecules with strong binding affinities to target proteins. Traditional computational methods, such as molecular docking and QSAR models, often lack the scalability and accuracy required for large-scale screening. In this project, we propose a deep learning approach utilizing Graph Neural Networks (GNNs) to predict protein-ligand binding affinities. Molecules are represented as graphs where atoms are nodes and chemical bonds are edges, allowing for a more natural and information-rich representation. Using datasets like MoleculeNet and PDBbind, we train GNN models to learn molecular representations and predict binding affinities. Additionally, protein structures are modeled either through 3D voxel grids or sequence embeddings, enabling protein-ligand interaction modeling. This work aims to improve virtual screening pipelines, reduce experimental costs, and accelerate the process of lead compound identification in drug discovery.
+
+
+Keywords:
+In biochemistry, a ligand is a molecule that binds to a receptor, which is a protein molecule that is involved in signaling or cellular responses. This binding event is crucial for cell communication and can initiate or modify various cellular processes. Ligands transmit signals by binding to receptors, which then relay the signal to other parts of the cell; they bind to specific receptors, much like a key fitting into a lock. 
+Receptors can be located on the cell surface or inside the cell, and upon ligand binding, receptors can undergo a conformational change, which triggers a cellular response.
+Binding affinity refers to the strength of the interaction between two molecules, typically a ligand and a receptor, where one molecule binds to the other. This interaction is crucial in various biological processes, including drug-target interactions and enzyme-substrate interactions. 
+In simpler terms, binding affinity describes how "sticky" two molecules are when they interact, with higher affinity meaning they are more tightly bound
+Equilibrium dissociation constant (Kd) is a common metric used to measure binding affinity, with lower Kd values indicating higher affinity
+
+
+Molecular docking is a computational technique used in structure-based drug design to predict how small molecules (ligands) bind to larger biomolecules (receptors), such as proteins. It helps understand molecular recognition and interaction, aiding in the discovery of potential drug candidates. 
+
+
+
+
+Objective:
+We’ll predict the binding affinity between a small molecule (ligand) and a target protein. For the aligned objective we’ll be using regression for predicting a continuous binding affinity value of Kd (dissociation constant) — lower the value, stronger the binding. We’ll be using the pKd values precisely ( pKd = -log10(Kd) ) as it is standard in drug discovery.
+* Input Modalities
+Input Type
+	Description 
+	Use case
+	Ligand Molecule
+	Graph Based Structure (atoms + bonds)
+	Core input for predicting interaction
+	Protein Target
+	Amino acid sequence or 3D structure
+	Allows modeling interaction with specific proteins
+	
+
+* Datasets supporting the objective : PDBbind (core set) — contains protein-ligand complexes and measured binding affinity values.
+   * URL: http://www.pdbbind.org.cn/
+   * Versions: v2020 or v2019 (latest widely used in papers)
+   * Subsets:
+      * General Set: ~19,000 complexes
+      * Refined Set: Higher quality, ~5,000 complexes (train dataset)
+      * Core Set: High-quality benchmark, ~300 complexes (test dataset)
+
+   * Evaluation Metrics : RMSE, Pearson correlation, MAE. 
+Why RMSE ? You don’t want a model that is mostly accurate but occasionally makes a huge error in predicting a key drug binding affinity.
+Why MAE ? Gives a realistic sense of how far off your model is on average — e.g., “on average, I’m off by 0.6 pKd units.”
+Why Pearson Correlation ? Even if your predictions aren't perfect, Pearson helps you understand whether your model at least ranks compounds correctly in terms of affinity.
+   * Tools : 
+      * RDKit is an open-source toolkit for cheminformatics, a field that combines chemistry and computer science. It provides a suite of tools for manipulating, analyzing, and visualizing chemical information, particularly molecular structures.
+RDKit offers a variety of tools for working with chemical data, including: 
+         * Molecular Structure Manipulation: Creating, modifying, and transforming molecular structures (e.g., from SMILES strings, 2D/3D representations). 
+         * Descriptor Calculation: Generating numerical features that represent molecular properties (e.g., molecular weight, logP) for use in machine learning. 
+         * Fingerprint Generation: Creating bit string representations of molecules that can be used for similarity searching and database querying. 
+         * Substructure Search: Identifying molecules that contain specific structural motifs.
+         * PyTorch is an open-source machine learning framework based on the Python programming language and the Torch library. It is used for applications such as computer vision and natural language processing.
